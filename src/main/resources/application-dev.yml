@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: ico9cCQrfKKVi4
-    url: jdbc:mysql://hangzhou.0520.site:33306/store?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://hangzhou.0520.site:33306/store?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 SnowFlake:
