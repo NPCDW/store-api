@@ -21,27 +21,32 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public Goods getByQRCode(String qrcode) {
+        return goodsMapper.selectByQRCode(qrcode);
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         return goodsMapper.deleteByPrimaryKey(id) > 0;
     }
 
     @Override
     public boolean updateById(Goods data) {
-        return goodsMapper.insert(data) > 0;
-    }
-
-    @Override
-    public boolean create(Goods data) {
         return goodsMapper.updateByPrimaryKeySelective(data) > 0;
     }
 
     @Override
-    public TableInfo<Goods> list(int pageNumber, int pageSize, String name, String qrcode) {
-        int count = goodsMapper.count(pageNumber, pageSize, name, qrcode);
+    public boolean create(Goods data) {
+        return goodsMapper.insert(data) > 0;
+    }
+
+    @Override
+    public TableInfo<Goods> list(int pageNumber, int pageSize, String name) {
+        int count = goodsMapper.count(pageNumber, pageSize, name);
         if (count == 0) {
             return new TableInfo<>(count, null);
         }
-        List<Goods> list = goodsMapper.list(pageNumber, pageSize, name, qrcode);
+        List<Goods> list = goodsMapper.list(pageNumber, pageSize, name);
         return new TableInfo<>(count, list);
     }
 }
