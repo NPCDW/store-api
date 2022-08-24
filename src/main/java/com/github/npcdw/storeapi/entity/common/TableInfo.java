@@ -4,14 +4,6 @@ import java.util.List;
 
 public class TableInfo<T> {
     /**
-     * 当前页
-     */
-    private Integer currentPage;
-    /**
-     * 总页数
-     */
-    private Integer pageCount;
-    /**
      * 记录总数
      */
     private Integer count;
@@ -20,27 +12,9 @@ public class TableInfo<T> {
      */
     private List<T> list;
 
-    public TableInfo(Integer currentPage, Integer pageCount, Integer count, List<T> list) {
-        this.currentPage = currentPage;
-        this.pageCount = pageCount;
+    public TableInfo(Integer count, List<T> list) {
         this.count = count;
         this.list = list;
-    }
-
-    public Integer getPageCount() {
-        return pageCount;
-    }
-
-    public void setPageCount(Integer pageCount) {
-        this.pageCount = pageCount;
-    }
-
-    public Integer getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(Integer currentPage) {
-        this.currentPage = currentPage;
     }
 
     public Integer getCount() {

@@ -13,11 +13,33 @@
   <sql id="Base_Column_List">
     id, create_time, update_time, qrcode, name, cover, price
   </sql>
+  <sql id="Base_Where">
+    <where>
+      <if test="name != null and name != ''">
+        and name LIKE concat('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="qrcode != null and qrcode != ''">
+        and qrcode = #{qrcode,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from goods
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="count" resultType="int">
+    select count(*)
+    from goods
+    <include refid="Base_Where" />
+  </select>
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from goods
+    <include refid="Base_Where" />
+    limit (pageNumber -1) * pageSize, pageSize
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from goods
