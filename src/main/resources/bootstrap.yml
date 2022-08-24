@@ -1,0 +1,30 @@
+server:
+  servlet:
+    context-path: /storeapi
+spring:
+  application:
+    name: storeapi
+  datasource:
+    hikari:
+      # 最小空闲连接数量  连接数 = (CPU核心数 * 2) + 有效磁盘数
+      minimum-idle: 5
+      # 连接池最大连接数
+      maximum-pool-size: 5
+      # 空闲连接存活最大时间
+      idle-timeout: 600000
+      # 连接的最长生命周期
+      max-lifetime: 1800000
+  servlet:
+    multipart:
+      max-request-size: 10MB #最大请求文件的大小
+      max-file-size: 10MB
+  mvc:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml #指定全局配置文件的位
+  mapper-locations: classpath:mybatis/mapper/*.xml #指定sql映射文件的位置
