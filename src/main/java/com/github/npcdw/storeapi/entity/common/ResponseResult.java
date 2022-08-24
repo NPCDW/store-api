@@ -39,11 +39,6 @@ public class ResponseResult<T> {
         return this;
     }
 
-    public ResponseResult<T> data(T data) {
-        this.setData(data);
-        return this;
-    }
-
     public Boolean getSuccess() {
         return success;
     }
