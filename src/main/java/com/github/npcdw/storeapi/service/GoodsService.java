@@ -7,12 +7,14 @@ public interface GoodsService {
 
     Goods getById(Integer id);
 
+    Goods getByQRCode(String qrcode);
+
     boolean deleteById(Integer id);
 
     boolean updateById(Goods data);
 
     boolean create(Goods data);
 
-    TableInfo<Goods> list(int pageNumber, int pageSize, String name, String qrcode);
+    TableInfo<Goods> list(int pageNumber, int pageSize, String name);
 
 }

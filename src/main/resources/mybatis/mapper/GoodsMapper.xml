@@ -18,9 +18,6 @@
       <if test="name != null and name != ''">
         and name LIKE concat('%',#{name,jdbcType=VARCHAR},'%')
       </if>
-      <if test="qrcode != null and qrcode != ''">
-        and qrcode = #{qrcode,jdbcType=VARCHAR}
-      </if>
     </where>
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -29,17 +26,24 @@
     from goods
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByQRCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from goods
+    where qrcode = #{qrcode,jdbcType=VARCHAR}
+  </select>
   <select id="count" resultType="int">
     select count(*)
     from goods
     <include refid="Base_Where" />
   </select>
   <select id="list" resultMap="BaseResultMap">
+    <bind name="start" value="(pageNumber - 1) * pageSize"/>
     select
     <include refid="Base_Column_List" />
     from goods
     <include refid="Base_Where" />
-    limit (pageNumber -1) * pageSize, pageSize
+    limit #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from goods
@@ -49,20 +53,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into goods (create_time, update_time, qrcode, 
-      name, cover, price)
-    values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{qrcode,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
+    insert into goods (qrcode, name, cover, price)
+    values (#{qrcode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.github.npcdw.storeapi.entity.Goods">
     update goods
     <set>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="qrcode != null">
         qrcode = #{qrcode,jdbcType=VARCHAR},
       </if>

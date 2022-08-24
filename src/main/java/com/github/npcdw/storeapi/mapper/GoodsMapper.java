@@ -12,10 +12,12 @@ public interface GoodsMapper {
 
     Goods selectByPrimaryKey(Integer id);
 
+    Goods selectByQRCode(String qrcode);
+
     int updateByPrimaryKeySelective(Goods record);
 
-    List<Goods> list(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("name") String name, @Param("qrcode") String qrcode);
+    List<Goods> list(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("name") String name);
 
-    int count(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("name") String name, @Param("qrcode") String qrcode);
+    int count(@Param("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("name") String name);
 
 }

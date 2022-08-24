@@ -5,6 +5,7 @@ import com.github.npcdw.storeapi.entity.common.ResponseResult;
 import com.github.npcdw.storeapi.entity.common.TableInfo;
 import com.github.npcdw.storeapi.service.GoodsService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,8 @@ public class GoodsController {
     private GoodsService goodsService;
 
     @GetMapping("list")
-    public ResponseResult<TableInfo<Goods>> list(int pageNumber, int pageSize, String name, String qrcode) {
-        TableInfo<Goods> tableInfo = goodsService.list(pageNumber, pageSize, name, qrcode);
+    public ResponseResult<TableInfo<Goods>> list(int pageNumber, int pageSize, String name) {
+        TableInfo<Goods> tableInfo = goodsService.list(pageNumber, pageSize, name);
         return ResponseResult.ok(tableInfo);
     }
 
@@ -27,6 +28,15 @@ public class GoodsController {
             return ResponseResult.error("ID不能为空");
         }
         Goods data = goodsService.getById(id);
+        return ResponseResult.ok(data);
+    }
+
+    @GetMapping("getInfoByQRCode")
+    public ResponseResult<Goods> getInfoByQRCode(String qrcode) {
+        if (StringUtils.isBlank(qrcode)) {
+            return ResponseResult.error("qrcode不能为空");
+        }
+        Goods data = goodsService.getByQRCode(qrcode);
         return ResponseResult.ok(data);
     }
 
