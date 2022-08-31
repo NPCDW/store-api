@@ -4,6 +4,7 @@ import com.github.npcdw.storeapi.entity.Goods;
 import com.github.npcdw.storeapi.entity.common.ResponseResult;
 import com.github.npcdw.storeapi.entity.common.TableInfo;
 import com.github.npcdw.storeapi.service.GoodsService;
+import com.github.npcdw.storeapi.util.SnowFlakeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class GoodsController {
 
     @PostMapping("create")
     public ResponseResult<Integer> create(@RequestBody Goods data) {
+        if (StringUtils.isBlank(data.getQrcode())) {
+            data.setQrcode(-SnowFlakeUtil.nextId() + "");
+        }
         goodsService.create(data);
         return ResponseResult.ok(data.getId());
     }
